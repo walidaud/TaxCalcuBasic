@@ -13,8 +13,8 @@ public final class TaxCalcuBasic {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("TaxCalcuBasic — simplified federal tax estimator");
-            System.out.println("Demo brackets only; excludes credits and provincial tax.");
+            System.out.println("TaxCalcuBasic - simplified federal tax estimator");
+            System.out.println("Simplified 2026 federal estimate; excludes provincial tax, CPP and EI.");
             BigDecimal income = readAmount(scanner, "Gross annual income (CAD): ");
             BigDecimal deductions = readAmount(scanner, "Eligible deductions (CAD): ");
 
@@ -22,19 +22,25 @@ public final class TaxCalcuBasic {
                     new FederalTaxCalculator(TaxConfig.demonstrationBrackets());
             TaxResult result = calculator.calculate(income, deductions);
 
-            System.out.println("\\n--- Estimate ---");
+            System.out.println("\n--- Estimate ---");
             System.out.println("Gross income:       " + CAD.format(result.grossIncome()));
             System.out.println("Deductions:         " + CAD.format(result.deductions()));
             System.out.println("Taxable income:     " + CAD.format(result.taxableIncome()));
-            System.out.println("\\nBracket breakdown:");
+            System.out.println("\nBracket breakdown:");
             for (TaxResult.BracketLine line : result.breakdown()) {
                 System.out.printf("  %s at %s%% -> %s%n",
                         CAD.format(line.incomeInBracket()),
                         line.rate().multiply(new BigDecimal("100")).stripTrailingZeros().toPlainString(),
                         CAD.format(line.taxInBracket()));
             }
-            System.out.println("\\nEstimated federal tax before credits: "
-                    + CAD.format(result.estimatedFederalTaxBeforeCredits()));
+            System.out.println("\nEstimated federal tax before credits: "
+                + CAD.format(result.estimatedFederalTaxBeforeCredits()));
+            System.out.println("Basic personal amount: "
+                + CAD.format(result.basicPersonalAmount()));
+            System.out.println("Basic personal amount credit applied: "
+                + CAD.format(result.basicPersonalAmountCreditApplied()));
+            System.out.println("Estimated federal tax after credits: "
+                + CAD.format(result.estimatedFederalTaxAfterCredits()));
             System.out.println("This is an educational estimate, not tax advice.");
         } catch (IllegalArgumentException ex) {
             System.err.println("Input error: " + ex.getMessage());

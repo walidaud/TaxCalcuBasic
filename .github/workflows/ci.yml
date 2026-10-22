@@ -1,3 +1,4 @@
+
 name: Java CI
 
 on:
@@ -24,3 +25,13 @@ jobs:
 
       - name: Run unit tests
         run: mvn --batch-mode --no-transfer-progress clean verify
+
+      - name: Smoke test CLI
+        shell: bash
+        run: |
+          output=$(printf '120000\n0\n' | java -cp target/classes dev.walid.tax.TaxCalcuBasic)
+          echo "$output"
+          grep -Fq 'Gross annual income (CAD):' <<< "$output"
+          grep -Fq 'Eligible deductions (CAD):' <<< "$output"
+          grep -Fq '--- Estimate ---' <<< "$output"
+          grep -Fq 'Estimated federal tax before credits:' <<< "$output"
