@@ -1,0 +1,5 @@
+services:
+  taxcalcu-basic:
+    build: .
+    stdin_open: true
+    tty: true
