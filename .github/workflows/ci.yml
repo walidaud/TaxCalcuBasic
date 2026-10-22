@@ -26,6 +26,7 @@ jobs:
       - name: Run unit tests
         run: mvn --batch-mode --no-transfer-progress clean verify
 
+      
       - name: Smoke test CLI
         shell: bash
         run: |
@@ -33,5 +34,7 @@ jobs:
           echo "$output"
           grep -Fq 'Gross annual income (CAD):' <<< "$output"
           grep -Fq 'Eligible deductions (CAD):' <<< "$output"
-          grep -Fq '--- Estimate ---' <<< "$output"
+          grep -Fq -- '--- Estimate ---' <<< "$output"
           grep -Fq 'Estimated federal tax before credits:' <<< "$output"
+          grep -Fq 'Basic personal amount:' <<< "$output"
+          grep -Fq 'Estimated federal tax after credits:' <<< "$output"
