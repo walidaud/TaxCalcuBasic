@@ -1,6 +1,6 @@
 # TaxCalcuBasic
 
-A small Java command-line project demonstrating a configurable marginal tax calculator, unit testing, Docker packaging, and continuous integration.
+A small Java command-line and GUI project demonstrating a configurable marginal tax calculator, unit testing, Docker packaging, and continuous integration
 
 ## Features
 
@@ -14,7 +14,7 @@ A small Java command-line project demonstrating a configurable marginal tax calc
 
 ## Important scope note
 
-This is an educational example, **not a complete Canadian tax calculator**. It currently calculates tax from the configured marginal brackets only. It does not calculate provincial or territorial tax, non-refundable credits, payroll contributions, benefit clawbacks, special income rules, or an official tax return. The included bracket configuration is demonstration data and must be checked against the CRA's official information before being used for a particular tax year.
+This is an educational example, not a complete Canadian tax calculator. It currently calculates tax from the configured marginal brackets only. It does not calculate provincial or territorial tax, non-refundable credits, payroll contributions, benefit clawbacks, special income rules, or an official tax return. The included bracket configuration is demonstration data and must be checked against the CRA's official information before being used for a particular tax year.
 
 Official starting point: https://www.canada.ca/en/revenue-agency/services/tax/individuals.html
 
@@ -46,7 +46,7 @@ Gross annual income (CAD): 65000
 Eligible deductions (CAD): 3000
 ```
 
-The result is an estimate before credits and should not be interpreted as final tax payable.
+The result gives us an estimate before credits and should not be interpreted as final tax payable.
 
 ## Run with Docker
 
@@ -90,10 +90,3 @@ compose.yaml
 pom.xml
 ```
 
-## Good next improvements
-
-1. Add a clearly versioned, source-linked tax configuration for a selected tax year.
-2. Add provincial/territorial tax as a separate calculator.
-3. Model credits separately from gross bracket tax.
-4. Add parameterized tests for every bracket boundary.
-5. Add a JSON output mode for easier integration testing.
